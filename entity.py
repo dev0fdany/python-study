@@ -34,7 +34,7 @@ class Snake():
     def draw(self):
         for body_pos in self.body_position:
             body_rec = Rectangle(int(body_pos.x * CELL_SIZE), int(body_pos.y * CELL_SIZE), CELL_SIZE, CELL_SIZE)
-            draw_rectangle_rounded(body_rec, 0.5, 5, COLOR_FR)
+            draw_rectangle_rounded(body_rec, 0.3, 5, COLOR_FR)
 
     def get_position(self):
         body = [Vector2(4,9),Vector2(5,9),Vector2(6,9)]
@@ -43,6 +43,20 @@ class Snake():
     def grow(self):
         self.body_position.append(vector2_add(self.body_position[-1], self.direction))
 
+    def check_collision_head(self):
+        self.headless_body = self.body_position.copy()
+        self.headless_body.pop()
+        is_colliding = True
+        while is_colliding:
+            is_colliding = False
+            for body_segment in self.headless_body:
+                if vector2_equals(body_segment, self.body_position[-1]):
+                    is_colliding = True
+                    return True
+
+    def reset(self):
+        self.body_position = self.get_position() #list
+        self.direction  = Vector2(1, 0)
 
     def update(self, dt):
         self.body_position.pop(0)
