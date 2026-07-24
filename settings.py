@@ -1,0 +1,11 @@
+import raylib as rl
+from pyray import *
+
+
+WINDOW_WIDTH =  WINDOW_HEIGHT = 750
+GAME_NAME = "SNAKE-GAME"
+FPS = 60
+COLOR_BG = Color(173, 204, 96, 255)
+COLOR_FR = Color(43, 51, 24, 255)
+COLOR_FOOD = Color(230, 30, 50, 255)
+CELL_SIZE = 30
