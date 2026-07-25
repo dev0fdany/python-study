@@ -1,9 +1,13 @@
 import raylib as rl
 from pyray import *
+from os.path import join
 
-
-WINDOW_WIDTH =  WINDOW_HEIGHT = 750
-GAME_NAME = "SNAKE-GAME"
+GAME_WIDTH = GAME_HEIGHT = 750
+OFF_SET = 75
+SCALE = 0.6
+WINDOW_WIDTH = int((2* OFF_SET + GAME_WIDTH ) * SCALE)
+WINDOW_HEIGHT = int((2* OFF_SET + GAME_HEIGHT ) * SCALE)
+GAME_NAME = "RETRO SNAKE"
 FPS = 60
 COLOR_BG = Color(173, 204, 96, 255)
 COLOR_FR = Color(43, 51, 24, 255)

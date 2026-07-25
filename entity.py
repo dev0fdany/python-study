@@ -1,12 +1,12 @@
 from settings import *
 
-class Food():
-    def __init__(self):
+class Food:
+    def __init__(self, food_texture):
         self.position = self.get_random_cell()
+        self.food_texture = food_texture
 
     def draw(self):
-        food_rec = Rectangle(int(self.position.x * CELL_SIZE), int(self.position.y * CELL_SIZE), CELL_SIZE, CELL_SIZE)
-        draw_rectangle_rounded(food_rec, 1, 5, COLOR_FOOD)
+        draw_texture(self.food_texture, int(OFF_SET+ self.position.x * CELL_SIZE), int(OFF_SET+ self.position.y * CELL_SIZE), COLOR_FOOD)
 
     def get_random_cell(self):
         x = int(get_random_value(0, 24))
@@ -33,7 +33,7 @@ class Snake():
 
     def draw(self):
         for body_pos in self.body_position:
-            body_rec = Rectangle(int(body_pos.x * CELL_SIZE), int(body_pos.y * CELL_SIZE), CELL_SIZE, CELL_SIZE)
+            body_rec = Rectangle(int(OFF_SET+ body_pos.x * CELL_SIZE), int(OFF_SET+ body_pos.y * CELL_SIZE), CELL_SIZE, CELL_SIZE)
             draw_rectangle_rounded(body_rec, 0.3, 5, COLOR_FR)
 
     def get_position(self):
@@ -59,8 +59,14 @@ class Snake():
         self.direction  = Vector2(1, 0)
 
     def update(self, dt):
+        next_head_pos = vector2_add(self.body_position[-1], self.direction)
+        if next_head_pos.x < 0 or next_head_pos.x >= CELL_COUNT:
+            return False
+        if next_head_pos.y < 0 or next_head_pos.y >= CELL_COUNT:
+            return False
         self.body_position.pop(0)
-        self.body_position.append(vector2_add(self.body_position[-1] , self.direction))
+        self.body_position.append(next_head_pos)
+        return True
 
 
     def input(self):
