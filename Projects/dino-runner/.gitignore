@@ -1,0 +1,4 @@
+HANGMAN/
+DINO/code/__pycache__/
+# ignore virutal env
+.venv/
